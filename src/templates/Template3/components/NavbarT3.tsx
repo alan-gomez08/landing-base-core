@@ -16,11 +16,15 @@ export default function NavbarT3({ data, paleta }: Props) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  // Consumimos los links dinámicos desde dataT3.ts (con fallback de seguridad)
+  const navLinks = data.nav?.links || [
     { name: 'Servicios', href: '#servicios' },
-    { name: 'Nuestro Equipo', href: '#equipo' },
-    { name: 'Ubicación', href: '#ubicacion' }
+    { name: 'Nuestra Agencia', href: '#equipo' },
+    { name: 'Contacto', href: '#ubicacion' }
   ];
+
+  // Consumimos el texto del botón del navbar, si no existe usa el del hero
+  const navButtonText = data.nav?.buttonText || data.hero.buttonText;
 
   return (
     <nav 
@@ -40,7 +44,7 @@ export default function NavbarT3({ data, paleta }: Props) {
         </a>
 
         <div className="hidden lg:flex items-center gap-12">
-          {navLinks.map((link) => (
+          {navLinks.map((link: any) => (
             <a 
               key={link.name} 
               href={link.href} 
@@ -61,7 +65,7 @@ export default function NavbarT3({ data, paleta }: Props) {
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = paleta.colorPrimario}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = `${paleta.colorPrimario}33`}
           >
-            {data.hero.buttonText}
+            {navButtonText}
           </a>
         </div>
 
@@ -77,7 +81,7 @@ export default function NavbarT3({ data, paleta }: Props) {
 
       {isOpen && (
         <div className="absolute top-full left-0 w-full border-t py-6 flex flex-col items-center gap-6 lg:hidden shadow-2xl" style={{ backgroundColor: paleta.fondoOscuro, borderColor: `${paleta.textoClaro}1A` }}>
-          {navLinks.map((link) => (
+          {navLinks.map((link: any) => (
             <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-lg font-medium font-['Lexend_Deca']" style={{ color: paleta.textoClaro }}>
               {link.name}
             </a>
@@ -87,7 +91,7 @@ export default function NavbarT3({ data, paleta }: Props) {
             className="mt-2 px-8 py-3 font-medium rounded flex items-center gap-2"
             style={{ backgroundColor: paleta.colorPrimario, color: paleta.textoClaro }}
           >
-            {data.hero.buttonText}
+            {navButtonText}
           </a>
         </div>
       )}
