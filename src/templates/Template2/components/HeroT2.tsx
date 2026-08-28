@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ClientData } from '../../../types';
 
 interface Props {
@@ -6,13 +7,11 @@ interface Props {
 }
 
 export default function HeroT2({ data, paleta }: Props) {
-  // 👇 LOGICA DE BOTÓN: Booleano que se vuelve true si configuraste 'calendar' en dataT2.ts
+  const [isHovered, setIsHovered] = useState(false);
+
   const isCalendar = data.hero.buttonType === 'calendar';
-  
-  // 👇 LOGICA DE BOTÓN: Construye el link final. Si es calendar y pusiste URL, manda a Calendly. Si no, manda directo al WhatsApp.
   const buttonHref = isCalendar && data.hero.buttonUrl ? data.hero.buttonUrl : `https://wa.me/${data.contact.whatsapp}`;
 
-  // 👇 LOGICA DE BOTÓN: Asigna el SVG del Calendario si isCalendar es true, o el logo clásico de WhatsApp si es false.
   const iconSvg = isCalendar ? (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
   ) : (
@@ -29,26 +28,49 @@ export default function HeroT2({ data, paleta }: Props) {
           <img src={data.hero.images.tablet} alt="Hero Background" className="w-full h-full object-cover object-center" />
         </picture>
         
-        {/* Gradiente más suave */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-black/30 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
 
         <div className="relative z-10 flex flex-col items-center text-center px-8">
-          <h1 className="text-[48px] md:text-[60px] lg:text-[80px] font-bold font-['Manrope'] leading-[1.1] max-w-[800px] mb-6" style={{ color: paleta.textoClaro }}>
+          {/* Sacamos text-balance y le dimos max-w-[1000px] para que ocupe todo el ancho en 2 líneas */}
+          <h1 className="text-[48px] md:text-[60px] lg:text-[80px] font-bold font-['Manrope'] leading-[1.1] max-w-[1000px] mb-6 drop-shadow-2xl" style={{ color: paleta.textoClaro }}>
             {data.hero.title}
           </h1>
-          <p className="text-[19px] lg:text-[24px] font-medium font-['Manrope'] max-w-[600px] leading-relaxed mb-10" style={{ color: `${paleta.textoClaro}D9` }}>
+          {/* Letra más chica (20px) y ancho de 850px para que calce perfecto en 2 líneas */}
+          <p className="text-[17px] lg:text-[20px] font-medium font-['Manrope'] max-w-[850px] leading-relaxed mb-10 drop-shadow-lg" style={{ color: `${paleta.textoClaro}F2` }}>
             {data.hero.subtitle}
           </p>
           
           <a 
             href={buttonHref}
             target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-4 py-2 pl-6 pr-2 border backdrop-blur-sm rounded-full transition-colors active:scale-95 hover:opacity-90"
-            style={{ backgroundColor: `${paleta.textoClaro}33`, borderColor: `${paleta.textoClaro}66` }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="relative overflow-hidden flex items-center gap-4 py-2 pl-6 pr-2 border backdrop-blur-sm rounded-full transition-all duration-300 active:scale-95 shadow-2xl group"
+            style={{ 
+              backgroundColor: `${paleta.textoClaro}33`, 
+              borderColor: isHovered ? paleta.colorPrimario : `${paleta.textoClaro}66` 
+            }}
           >
-            <span className="text-[16px] lg:text-[18px] font-medium font-['Manrope']" style={{ color: paleta.textoClaro }}>{data.hero.buttonText}</span>
-            <div className="w-10 h-10 lg:w-[42px] lg:h-[42px] rounded-full flex justify-center items-center shadow-lg" style={{ backgroundColor: paleta.colorPrimario, color: paleta.textoClaro }}>
-              {/* 👇 LOGICA DE BOTÓN: Acá se inyecta el SVG final (WhatsApp o Agenda) elegido previamente */}
+            {/* CAPA DE PINTURA (FILL) */}
+            <div 
+              className="absolute left-0 top-0 h-full transition-all duration-[400ms] ease-out z-0"
+              style={{ 
+                width: isHovered ? '100%' : '0%',
+                backgroundColor: paleta.colorPrimario 
+              }}
+            />
+
+            <span className="relative z-10 text-[16px] lg:text-[18px] font-medium font-['Manrope'] drop-shadow-md transition-colors" style={{ color: paleta.textoClaro }}>
+              {data.hero.buttonText}
+            </span>
+            
+            <div 
+              className="relative z-10 w-10 h-10 lg:w-[42px] lg:h-[42px] rounded-full flex justify-center items-center shadow-lg transition-colors duration-[400ms]" 
+              style={{ 
+                backgroundColor: isHovered ? paleta.textoClaro : paleta.colorPrimario, 
+                color: isHovered ? paleta.colorPrimario : paleta.textoClaro 
+              }}
+            >
               {iconSvg}
             </div>
           </a>
@@ -59,24 +81,24 @@ export default function HeroT2({ data, paleta }: Props) {
       <div className="flex md:hidden flex-col w-full" style={{ backgroundColor: paleta.fondoPrincipal }}>
         <div className="relative w-full h-[60vh] min-h-[450px]" style={{ backgroundColor: paleta.fondoOscuro }}>
           <img src={data.hero.images.mobile} alt="Hero Background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 50%, ${paleta.fondoPrincipal} 100%)` }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, ${paleta.fondoPrincipal} 100%)` }} />
         </div>
         
         <div className="relative z-10 -mt-20 px-4 pb-16 w-full" style={{ backgroundColor: paleta.fondoPrincipal }}>
           <div className="rounded-[16px] p-6 shadow-[0px_15px_40px_rgba(0,0,0,0.06)] flex flex-col items-start w-full relative z-20" style={{ backgroundColor: paleta.fondoCajas }}>
+            {/* Se lo sacamos también en mobile por las dudas */}
             <h1 className="text-[36px] font-bold font-['Manrope'] leading-[1.1] mb-4" style={{ color: paleta.textoPrimario }}>
               {data.hero.title}
             </h1>
-            <p className="text-[16px] font-normal font-['Inter'] leading-[26px] mb-6" style={{ color: `${paleta.textoPrimario}B3` }}>
+            <p className="text-[15px] font-normal font-['Inter'] leading-[26px] mb-6" style={{ color: `${paleta.textoPrimario}B3` }}>
               {data.hero.subtitle}
             </p>
             <a 
               href={buttonHref}
               target="_blank" rel="noopener noreferrer"
-              className="w-full py-4 rounded-full flex justify-center items-center gap-2.5 active:scale-95 transition-transform hover:opacity-90"
-              style={{ backgroundColor: paleta.colorAcento, color: paleta.textoClaro }}
+              className="w-full py-4 rounded-full flex justify-center items-center gap-2.5 active:scale-95 transition-transform hover:opacity-90 shadow-md"
+              style={{ backgroundColor: paleta.colorPrimario, color: paleta.textoClaro }}
             >
-              {/* 👇 LOGICA DE BOTÓN: Lo mismo, se inyecta el SVG para la vista de teléfonos */}
               {iconSvg}
               <span className="text-[15px] font-semibold font-['Inter']">{data.hero.buttonText}</span>
             </a>
