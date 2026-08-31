@@ -3,6 +3,7 @@ import NavbarT3 from './components/NavbarT3';
 import HeroT3 from './components/HeroT3';
 import ServiciosT3 from './components/ServiciosT3';
 import EquipoT3 from './components/EquipoT3';
+import FaqT3 from './components/FaqT3';
 import CtaT3 from './components/CtaT3';
 import LocationT3 from './components/LocationT3';
 import FooterT3 from './components/FooterT3';
@@ -33,6 +34,8 @@ export default function Template3() {
       <HeroT3 data={configT3} paleta={paleta} />
       <ServiciosT3 data={configT3} paleta={paleta} />
       <EquipoT3 data={configT3} paleta={paleta} />
+      {/* Nueva sección FAQ insertada antes del CTA */}
+      <FaqT3 data={configT3} paleta={paleta} />
       <CtaT3 data={configT3} paleta={paleta} />
       <LocationT3 data={configT3} paleta={paleta} />
       <FooterT3 data={configT3} paleta={paleta} />

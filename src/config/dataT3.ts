@@ -1,10 +1,21 @@
 import type { ClientData } from '../types/index';
 
-export const configT3: ClientData = {
+// Usamos any temporalmente acá o expandimos ClientData en tu types/index.ts
+export const configT3: ClientData | any = {
   templateId: 'template-3',
   businessName: 'Tu Logo',
   theme: { primaryColor: '#2563EB', secondaryColor: '#0F172A' },
   
+  // NAV CONFIG (Para el navbar)
+  nav: {
+    links: [
+      { name: 'Especialidades', href: '#servicios' },
+      { name: 'El Estudio', href: '#equipo' },
+      { name: 'Contacto', href: '#ubicacion' }
+    ],
+    buttonText: 'Agendar ahora',
+  },
+
   hero: { 
     title: 'Protegemos tu patrimonio y optimizamos tus impuestos', 
     subtitle: 'Asesoramiento contable y jurídico integral para empresas y profesionales. Decisiones estratégicas con respaldo legal.', 
@@ -48,6 +59,35 @@ export const configT3: ClientData = {
       { id: '5', title: 'Planificación Fiscal', description: 'Análisis de rentabilidad y estrategias legales para optimizar la carga impositiva de tu empresa.', price: '', category: '', imagePath: '/assets-t3/icon-fiscal.svg' },
       { id: '6', title: 'Gestión de Trámites', description: 'Habilitaciones, certificaciones y representación integral ante organismos públicos y AFIP.', price: '', category: '', imagePath: '/assets-t3/icon-tramites.svg' }
     ] 
+  },
+
+  // === SECCIÓN: FAQ (Preguntas Frecuentes) ===
+  faqs: [
+    {
+      question: 'Ya tengo contador, ¿es muy complicado cambiar de estudio?',
+      answer: 'Para nada. Nosotros nos encargamos de toda la transición. Solo necesitamos que nos habilites los accesos fiscales correspondientes para tomar el control de tus presentaciones, sin interrumpir la operatividad de tu negocio.'
+    },
+    {
+      question: '¿Trabajan solo con empresas o también con monotributistas?',
+      answer: 'Brindamos asesoramiento integral tanto a Pymes y corporaciones como a profesionales independientes y monotributistas. Adaptamos nuestros servicios y honorarios a la escala y necesidades de tu actividad.'
+    },
+    {
+      question: '¿Cómo es el proceso de la primera consulta?',
+      answer: 'Realizamos una primera reunión (virtual o presencial) para entender tu situación fiscal, contable o legal. A partir de ahí, hacemos un diagnóstico de tu estado actual y te proponemos un plan de trabajo concreto.'
+    },
+    {
+      question: '¿Cómo manejan la entrega de documentación mensual?',
+      answer: 'Trabajamos de forma 100% digitalizada. Te daremos acceso a una carpeta segura en la nube donde podrás subir tus facturas, extractos y comprobantes mes a mes, evitando el papeleo y agilizando los tiempos.'
+    }
+  ],
+
+  // === SECCIÓN: CALL TO ACTION (CTA) ===
+  cta: {
+    title: 'Delegá tus obligaciones legales y fiscales hoy',
+    description: 'Dejá los números y contratos en manos de expertos. Contactanos hoy para una asesoría inicial sin cargo.',
+    buttonText: 'Agendar una reunión',
+    buttonType: 'whatsapp',
+    buttonUrl: '' 
   },
 
   events: { title: '', description: '', buttonText: '' },
