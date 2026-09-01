@@ -1,14 +1,27 @@
 export interface ClientData {
-  templateId: string;
+  templateId?: string;
   businessName: string;
+  config?: {
+    modulo?: string;
+    mostrarPrecios?: boolean;
+    agendaModo?: string;
+    agendaLink?: string;
+    [key: string]: any;
+  };
   theme: {
     primaryColor: string;
     secondaryColor: string;
+  };
+  nav?: {
+    links?: { name: string; href: string }[];
+    buttonText?: string;
   };
   hero: {
     title: string;
     subtitle: string;
     buttonText: string;
+    buttonType?: string;
+    buttonUrl?: string;
     images: {
       desktop: string;
       tablet: string;
@@ -19,6 +32,9 @@ export interface ClientData {
     title: string;
     subtitle: string;
     description: string;
+    buttonText?: string;
+    buttonType?: string;
+    buttonUrl?: string;
     images: {
       desktop: string;
       tablet: string;
@@ -35,6 +51,8 @@ export interface ClientData {
       price: string;
       imagePath: string;
       category: string;
+      colores?: string[];
+      talles?: string[];
     }[];
   };
   stats: {
@@ -48,21 +66,41 @@ export interface ClientData {
     title: string;
     description: string;
     buttonText: string;
+    buttonType?: string;
+    buttonUrl?: string;
+    images?: string[];
+  };
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+  cta?: {
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonType?: string;
+    buttonUrl?: string;
   };
   testimonials: {
     title: string;
     items: {
-      id: string;
+      id?: string;
       name: string;
-      text: string;
-      imagePath: string;
-      rating: number;
+      text?: string;
+      content?: string;
+      role?: string;
+      imagePath?: string;
+      avatar?: string;
+      bgImage?: string;
+      rating?: number;
     }[];
   };
   location: {
     title: string;
     description: string;
     buttonText: string;
+    buttonType?: string;
+    buttonUrl?: string;
     mapEmbedUrl: string;
   };
   contact: {
