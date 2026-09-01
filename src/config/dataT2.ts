@@ -2,12 +2,12 @@ import type { ClientData } from '../types/index';
 
 export const configT2: any = {
   templateId: 'template-2',
-  businessName: 'Tu Marca de Muebles',
+  businessName: 'Tu Marca',
   
   // --- EL INTERRUPTOR MAESTRO ---
   config: {
     modulo: 'catalogos', // Catalogos - Turnos
-    mostrarPrecios: false, // true  - false
+    mostrarPrecios: true, // true  - false
     agendaModo: 'link', // whatsapp - link
     agendaLink: 'https://calendly.com/tu-usuario',
   },

@@ -5,7 +5,7 @@ import Template4 from './templates/Template4/Template4';
 
 function App() {
  
-  const activeTemplate = import.meta.env.VITE_TEMPLATE_ID || 'template-3';
+  const activeTemplate = import.meta.env.VITE_TEMPLATE_ID || 'template-2';
 
   return (
     <div className="w-full min-h-screen">
