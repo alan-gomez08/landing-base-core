@@ -12,16 +12,15 @@ export default function Template3() {
 
   // 🎨 TABLERO DE COLORES T3 🎨
   const paleta = {
-    fondoOscuro: "#0F172A",          // Fondo principal oscuro (Hero, Menú Mobile)
-    fondoOscuroSecundario: "#101828",// Fondo del Footer
-    fondoClaro: "#F8FAFC",           // Fondo de secciones claras (Servicios, Equipo)
-    fondoCajas: "#FFFFFF",           // Fondo de las tarjetas blancas
-    colorPrimario: configT3?.theme?.primaryColor || "#2563EB", // Azul corporativo (Botones, Íconos)
-    textoClaro: "#F5F5F5",           // Textos sobre fondo oscuro
-    textoOscuro: "#0F172A",          // Títulos sobre fondo claro
-    textoGris: "#475569",            // Párrafos sobre fondo claro
-  };
-
+  fondoOscuro: "#0B192C",          // Azul noche profundo y corporativo
+  fondoOscuroSecundario: "#06101E",// Azul casi negro para el Footer
+  fondoClaro: "#F8F9FA",           // Blanco roto muy sutil (no cansa la vista)
+  fondoCajas: "#FFFFFF",           // Blanco puro para resaltar las tarjetas
+  colorPrimario: configT3?.theme?.primaryColor || "#C5A059", // Dorado Champagne elegante
+  textoClaro: "#FFFFFF",           // Textos sobre fondos oscuros
+  textoOscuro: "#0B192C",          // Títulos oscuros (mismo tono que el fondo)
+  textoGris: "#546477",            // Párrafos grises con leve tinte azulado
+};
   return (
     <main 
       className="w-full min-h-screen font-sans selection:text-white overflow-x-hidden"

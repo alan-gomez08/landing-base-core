@@ -4,22 +4,22 @@ import type { ClientData } from '../types/index';
 export const configT3: ClientData | any = {
   templateId: 'template-3',
   businessName: 'Tu Logo',
-  theme: { primaryColor: '#2563EB', secondaryColor: '#0F172A' },
+  theme: { primaryColor: '#C5A059', secondaryColor: '#0B192C' },
   
   // NAV CONFIG (Para el navbar)
   nav: {
     links: [
       { name: 'Especialidades', href: '#servicios' },
-      { name: 'El Estudio', href: '#equipo' },
+      { name: 'Mi Perfil', href: '#equipo' },
       { name: 'Contacto', href: '#ubicacion' }
     ],
     buttonText: 'Agendar ahora',
   },
 
   hero: { 
-    title: 'Protegemos tu patrimonio y optimizamos tus impuestos', 
-    subtitle: 'Asesoramiento contable y jurídico integral para empresas y profesionales. Decisiones estratégicas con respaldo legal.', 
-    buttonText: 'Agendar Asesoría', 
+    title: 'Defendemos tus derechos y maximizamos tu indemnización', 
+    subtitle: 'Asesoramiento legal y representación integral para trabajadores y accidentados. Reclamos estratégicos con respaldo jurídico.', 
+    buttonText: 'Agendar Asesoría Gratis', 
     images: { 
       desktop: '/assets-t3/hero-desktop.webp', 
       tablet: '/assets-t3/hero-tablet.webp', 
@@ -29,9 +29,9 @@ export const configT3: ClientData | any = {
   
   // EQUIPO T3 (Usamos la sección About)
   about: { 
-    title: 'El Estudio', 
+    title: 'Sobre Mí', 
     subtitle: '', 
-    description: 'En nuestro estudio, entendemos que cada decisión financiera y legal impacta directamente en el crecimiento y la estabilidad de tu negocio. Por eso, contamos con más de 15 años de trayectoria en el mercado brindando asesoramiento integral a Pymes, emprendedores y grandes corporaciones. Nuestro enfoque trasciende la simple liquidación de impuestos o la redacción de contratos; nos posicionamos como verdaderos socios estratégicos de nuestros clientes.\n\nTrabajamos bajo una estricta filosofía basada en la prevención de conflictos, la atención personalizada y la actualización constante frente a los continuos cambios normativos.', 
+    description: 'En mi despacho, entiendo que cada accidente vial y laboral impacta directamente en el bienestar y la estabilidad de tu familia. Por eso, cuento con más de 15 años de trayectoria en el mercado brindando acompañamiento integral a víctimas, trabajadores y personas damnificadas. Mi enfoque trasciende la simple presentación de escritos o la redacción de telegramas; me posiciono como verdadero aliado estratégico de mis clientes.\n\nTrabajo bajo una estricta filosofía basada en la resolución de conflictos, la atención personalizada y la actualización constante frente a los continuos cambios jurisprudenciales.', 
     images: { desktop: '/assets-t3/estudio-equipo.webp', tablet: '/assets-t3/estudio-equipo.webp', mobile: '/assets-t3/estudio-equipo.webp' } 
   },
   
@@ -39,53 +39,53 @@ export const configT3: ClientData | any = {
   stats: { 
     title: '', 
     items: [
-      { value: '', label: 'Profesionales matriculados y en constante capacitación' },
+      { value: '', label: 'Abogado matriculado y en constante capacitación' },
       { value: '', label: 'Atención personalizada y respuestas ágiles' },
-      { value: '', label: 'Confidencialidad y seguridad de datos absoluta' },
-      { value: '', label: 'Visión integral estratégica del negocio' }
+      { value: '', label: 'Transparencia y honestidad de gestión absoluta' },
+      { value: '', label: 'VVisión integral estratégica del reclamo' }
     ] 
   },
 
   // SERVICIOS T3 (Usamos la sección Menu)
   menu: { 
-    title: 'Nuestras Especialidades', 
+    title: 'Mis Especialidades', 
     // Usamos el primer elemento de categories para pasar el subtítulo de la sección
-    categories: ['Soluciones integrales para la tranquilidad financiera y legal de tu negocio.'], 
+    categories: ['Soluciones integrales para la tranquilidad económica y legal de tu familia.'], 
     items: [
-      { id: '1', title: 'Asesoría Contable', description: 'Liquidación de impuestos, balances y auditorías financieras para mantener tus números al día.', price: '', category: '', imagePath: '/assets-t3/icon-contable.svg' },
-      { id: '2', title: 'Liquidación de Sueldos', description: 'Gestión de nóminas, cargas sociales y asesoramiento laboral continuo para tu equipo.', price: '', category: '', imagePath: '/assets-t3/icon-sueldos.svg' },
-      { id: '3', title: 'Asesoramiento Legal', description: 'Constitución de sociedades, redacción de contratos y defensa corporativa.', price: '', category: '', imagePath: '/assets-t3/icon-legal.svg' },
-      { id: '4', title: 'Monotributo', description: 'Altas, recategorizaciones y control mensual de facturación para trabajadores independientes.', price: '', category: '', imagePath: '/assets-t3/icon-monotributo.svg' },
-      { id: '5', title: 'Planificación Fiscal', description: 'Análisis de rentabilidad y estrategias legales para optimizar la carga impositiva de tu empresa.', price: '', category: '', imagePath: '/assets-t3/icon-fiscal.svg' },
-      { id: '6', title: 'Gestión de Trámites', description: 'Habilitaciones, certificaciones y representación integral ante organismos públicos y AFIP.', price: '', category: '', imagePath: '/assets-t3/icon-tramites.svg' }
+      { id: '1', title: 'Accidentes Viales', description: 'Gestión de siniestros, peritajes y reclamos a aseguradoras para obtener tu máxima compensación.', price: '', category: '', imagePath: '/assets-t3/icon-contable.svg' },
+      { id: '2', title: 'Reclamos Contra ART', description: 'GGestión de altas, comisiones médicas y asesoramiento legal continuo para tu salud.', price: '', category: '', imagePath: '/assets-t3/icon-sueldos.svg' },
+      { id: '3', title: 'Despidos Laborales', description: 'Liquidación de indemnizaciones, redacción de telegramas y defensa laboral.', price: '', category: '', imagePath: '/assets-t3/icon-legal.svg' },
+      { id: '4', title: 'Incapacidades', description: 'Juntas, reevaluaciones y control mensual de expedientes para trabajadores damnificados.', price: '', category: '', imagePath: '/assets-t3/icon-monotributo.svg' },
+      { id: '5', title: 'Enfermedad Laboral', description: 'Análisis de historiales y estrategias legales para reconocer la carga física de tu trabajo.', price: '', category: '', imagePath: '/assets-t3/icon-fiscal.svg' },
+      { id: '6', title: 'Acuerdos y Juicios', description: 'Conciliaciones, mediaciones y representación integral ante tribunales laborales y SRT.', price: '', category: '', imagePath: '/assets-t3/icon-tramites.svg' }
     ] 
   },
 
   // === SECCIÓN: FAQ (Preguntas Frecuentes) ===
   faqs: [
     {
-      question: 'Ya tengo contador, ¿es muy complicado cambiar de estudio?',
-      answer: 'Para nada. Nosotros nos encargamos de toda la transición. Solo necesitamos que nos habilites los accesos fiscales correspondientes para tomar el control de tus presentaciones, sin interrumpir la operatividad de tu negocio.'
+      question: '¿Ya tengo abogado, es muy complicado cambiar de estudio?',
+      answer: 'Es un trámite rápido, sencillo y un derecho que tenés como cliente. Solo necesitás firmar una revocación de poder. Nosotros nos encargamos de notificar formalmente al abogado anterior y de solicitar el estado de tu expediente para continuar tu reclamo sin demoras.'
     },
     {
-      question: '¿Trabajan solo con empresas o también con monotributistas?',
-      answer: 'Brindamos asesoramiento integral tanto a Pymes y corporaciones como a profesionales independientes y monotributistas. Adaptamos nuestros servicios y honorarios a la escala y necesidades de tu actividad.'
+      question: '¿Trabajan solo con accidentes o también con enfermedades?',
+      answer: 'Cubrimos ambas áreas. Además de accidentes viales y de trabajo (in itinere o en planta), tramitamos el reconocimiento de enfermedades profesionales (aquellas causadas por el esfuerzo repetitivo o el ambiente de trabajo) ante las Comisiones Médicas de la SRT para que cobres lo que corresponde.'
     },
     {
       question: '¿Cómo es el proceso de la primera consulta?',
-      answer: 'Realizamos una primera reunión (virtual o presencial) para entender tu situación fiscal, contable o legal. A partir de ahí, hacemos un diagnóstico de tu estado actual y te proponemos un plan de trabajo concreto.'
+      answer: 'Es una evaluación totalmente confidencial y sin cargo. Nos contás los detalles del siniestro, revisamos la documentación que tengas a mano (denuncia, estudios médicos, recibos de sueldo) y te explicamos la viabilidad del reclamo, los plazos legales y los próximos pasos a seguir.'
     },
     {
-      question: '¿Cómo manejan la entrega de documentación mensual?',
-      answer: 'Trabajamos de forma 100% digitalizada. Te daremos acceso a una carpeta segura en la nube donde podrás subir tus facturas, extractos y comprobantes mes a mes, evitando el papeleo y agilizando los tiempos.'
+      question: '¿Cómo manejan la entrega de documentos en pericias?',
+      answer: 'Trabajamos con un sistema digitalizado ágil. Podés enviarnos fotos de tus estudios médicos e informes por WhatsApp. El día de la junta médica o pericia oficial, te asesoramos previamente y te indicamos exactamente qué documentación física presentar para asegurar que tus lesiones sean evaluadas correctamente.'
     }
   ],
 
   // === SECCIÓN: CALL TO ACTION (CTA) ===
   cta: {
-    title: 'Delegá tus obligaciones legales y fiscales hoy',
-    description: 'Dejá los números y contratos en manos de expertos. Contactanos hoy para una asesoría inicial sin cargo.',
-    buttonText: 'Agendar una reunión',
+    title: 'Delegá tus problemas legales y médicos hoy',
+    description: 'Dejá tus pericias y tus reclamos en manos de expertos. Contactame hoy para una asesoría inicial sin cargo.',
+    buttonText: 'Agendar una consulta',
     buttonType: 'whatsapp',
     buttonUrl: '' 
   },
@@ -93,8 +93,8 @@ export const configT3: ClientData | any = {
   events: { title: '', description: '', buttonText: '' },
   testimonials: { title: '', items: [] },
   location: { 
-    title: 'Nuestras Oficinas.\nVisitanos', 
-    description: 'Estamos ubicados en el centro estratégico para tu comodidad. Vení a tomar un café con nosotros y analicemos el estado de tu empresa cara a cara con total confidencialidad.', 
+    title: 'Mi Estudio.\nVisitanos', 
+    description: 'Tengo oficinas en el CABA. Vení a tomar un café conmigo y analicemos el estado de tu carpeta cara a cara, con estricta y total confidencialidad.', 
     buttonText: 'Agendar Reunión Presencial', 
     mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.016713276848!2d-58.38375908477038!3d-34.60373888045942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4aa9f0a6da5edb%3A0x11be2277a064115b!2sObelisco!5e0!3m2!1ses-419!2sar!4v1680000000000!5m2!1ses-419!2sar' 
   },

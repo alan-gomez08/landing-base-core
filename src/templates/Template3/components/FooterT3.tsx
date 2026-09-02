@@ -25,7 +25,7 @@ export default function FooterT3({ data, paleta }: Props) {
               </a>
               
               <p className="text-[16px] font-normal font-['Inter'] leading-relaxed mb-6" style={{ color: `${paleta.textoClaro}99` }}>
-                Estudio contable y jurídico. Soluciones estratégicas para el crecimiento seguro de tu empresa.
+                Estudio jurídico especializado. Soluciones estratégicas para el cobro seguro de tu indemnización laboral.
               </p>
 
               <div className="flex gap-4">

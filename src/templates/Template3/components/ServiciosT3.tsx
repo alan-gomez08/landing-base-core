@@ -1,5 +1,6 @@
 import type { ClientData } from '../../../types';
 import ScrollReveal from '../../Template1/components/ScrollReveal';
+import { Briefcase, Activity, Scale, Car, FileText, Landmark, ShieldCheck, HeartPulse } from 'lucide-react';
 
 interface Props {
   data: ClientData;
@@ -7,6 +8,42 @@ interface Props {
 }
 
 export default function ServiciosT3({ data, paleta }: Props) {
+  
+  // Función para determinar el ícono según palabras clave en el título
+  const getIconForService = (title: string) => {
+    const titleLower = title.toLowerCase();
+    
+    // El orden es importante. Validamos primero las palabras más específicas.
+    if (titleLower.includes('enfermedad') || titleLower.includes('salud')) {
+      return <HeartPulse className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    if (titleLower.includes('incapacidad') || titleLower.includes('medica') || titleLower.includes('médica')) {
+      return <Activity className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    if (titleLower.includes('accidente') || titleLower.includes('vial') || titleLower.includes('tránsito')) {
+      return <Car className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    if (titleLower.includes('art') || titleLower.includes('aseguradora') || titleLower.includes('seguro')) {
+      return <ShieldCheck className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    if (titleLower.includes('despido')) {
+      return <Briefcase className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    if (titleLower.includes('acuerdo') || titleLower.includes('juicio') || titleLower.includes('legal') || titleLower.includes('abogado')) {
+      return <Scale className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    if (titleLower.includes('tramite') || titleLower.includes('documento') || titleLower.includes('contrato')) {
+      return <FileText className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    // Dejamos "laboral" para el final por si agregan un servicio genérico
+    if (titleLower.includes('laboral') || titleLower.includes('trabajo')) {
+      return <Briefcase className="w-7 h-7 text-white" strokeWidth={1.5} />;
+    }
+    
+    // Ícono por defecto (Balanza)
+    return <Landmark className="w-7 h-7 text-white" strokeWidth={1.5} />;
+  };
+
   return (
     <section id="servicios" className="w-full py-[80px] lg:py-[120px] scroll-mt-20" style={{ backgroundColor: paleta.fondoClaro }}>
       <div className="max-w-[1250px] mx-auto px-6 lg:px-8 flex flex-col items-center">
@@ -33,11 +70,7 @@ export default function ServiciosT3({ data, paleta }: Props) {
                   className="w-14 h-14 rounded-[10px] flex justify-center items-center mb-6 group-hover:scale-105 transition-transform duration-300 shadow-md"
                   style={{ backgroundColor: paleta.colorPrimario }}
                 >
-                  {service.imagePath ? (
-                    <img src={service.imagePath} alt={`Ícono de ${service.title}`} className="w-7 h-7 object-contain mix-blend-screen" />
-                  ) : (
-                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                  )}
+                  {getIconForService(service.title)}
                 </div>
                 
                 <h3 className="text-[20px] font-bold font-['Lexend_Deca'] leading-tight mb-3" style={{ color: paleta.textoOscuro }}>

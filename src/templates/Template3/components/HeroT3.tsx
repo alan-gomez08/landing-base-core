@@ -21,7 +21,7 @@ export default function HeroT3({ data, paleta }: Props) {
   );
 
   return (
-    <section id="inicio" className="relative w-full h-[100svh] min-h-[750px] flex items-end lg:items-center overflow-hidden" style={{ backgroundColor: paleta.fondoOscuro }}>
+    <section id="inicio" className="relative w-full h-[100svh] min-h-[750px] flex flex-col justify-end lg:justify-center overflow-hidden pb-12 lg:pb-0" style={{ backgroundColor: paleta.fondoOscuro }}>
       
       <picture className="absolute inset-0 w-full h-full">
         <source media="(min-width: 1024px)" srcSet={data.hero.images.desktop} />
@@ -33,47 +33,48 @@ export default function HeroT3({ data, paleta }: Props) {
         />
       </picture>
 
-      <div className="absolute inset-0 bg-black/10" /> 
+      {/* Capa base de oscurecimiento suave */}
+      <div className="absolute inset-0 bg-black/20" /> 
       
       {/* Sombra protectora para la Navbar */}
       <div className="absolute top-0 left-0 w-full h-[140px] bg-gradient-to-b from-black/70 to-transparent pointer-events-none z-0" />
 
-      {/* Degradados laterales/inferiores */}
+      {/* Degradados protectores de legibilidad */}
       <div 
-        className="absolute inset-0 hidden lg:block" 
-        style={{ background: `linear-gradient(90deg, ${paleta.fondoOscuro}FA 0%, ${paleta.fondoOscuro}CC 40%, transparent 100%)` }} 
+        className="absolute inset-0 hidden lg:block pointer-events-none" 
+        style={{ background: `linear-gradient(90deg, ${paleta.fondoOscuro}E6 0%, ${paleta.fondoOscuro}99 45%, transparent 100%)` }} 
       />
       <div 
-        className="absolute inset-0 lg:hidden" 
-        style={{ background: `linear-gradient(180deg, transparent 0%, transparent 30%, ${paleta.fondoOscuro}E6 75%, ${paleta.fondoOscuro} 100%)` }} 
+        className="absolute inset-0 lg:hidden pointer-events-none" 
+        style={{ background: `linear-gradient(180deg, transparent 0%, transparent 20%, ${paleta.fondoOscuro}CC 70%, ${paleta.fondoOscuro}FA 100%)` }} 
       />
 
-      <div className="relative z-10 w-full max-w-[1250px] mx-auto px-6 lg:px-8 pb-16 pt-32 md:pb-0 md:pt-0 flex flex-col justify-end lg:justify-center text-left h-full">
-        <div className="max-w-[800px] flex flex-col items-start">
+      <div className="relative z-10 w-full max-w-[1250px] mx-auto px-6 sm:px-10 lg:px-12 flex flex-col items-start h-auto">
+        <div className="max-w-[800px] flex flex-col items-start w-full">
           
           <h1 
-            className="text-[44px] md:text-[60px] lg:text-[76px] font-extrabold font-['Lexend_Deca'] tracking-tighter leading-[1.05] mb-6 text-balance drop-shadow-xl" 
+            className="text-[40px] sm:text-[48px] md:text-[56px] lg:text-[76px] font-extrabold font-['Lexend_Deca'] tracking-tighter leading-[1.1] mb-5 text-balance drop-shadow-lg" 
             style={{ color: paleta.textoClaro }}
           >
             {data.hero.title}
           </h1>
           
           <p 
-            className="text-[17px] md:text-[20px] lg:text-[22px] font-light font-['Inter'] leading-relaxed max-w-[550px] lg:max-w-[650px] mb-10 text-balance" 
+            className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] font-light font-['Inter'] leading-relaxed max-w-[550px] lg:max-w-[650px] mb-8 text-balance drop-shadow-md" 
             style={{ color: `${paleta.textoClaro}E6` }}
           >
             {data.hero.subtitle}
           </p>
           
-          {/* BOTÓN 100% UNIFICADO CON CTA Y LOCATION */}
+          {/* BOTÓN UNIFICADO */}
           <a 
             href={buttonHref}
             target="_blank" rel="noopener noreferrer"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="group relative overflow-hidden w-full sm:w-auto px-10 py-4 rounded-[4px] flex justify-center items-center gap-3 transition-all duration-300 active:scale-95 shadow-lg"
+            className="group relative overflow-hidden w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 rounded-[4px] flex justify-center items-center gap-3 transition-all duration-300 active:scale-95 shadow-lg"
             style={{ 
-              backgroundColor: `${paleta.colorPrimario}0D`, 
+              backgroundColor: `${paleta.colorPrimario}1A`, // Aumenté levemente la opacidad base
               borderColor: paleta.colorPrimario,
               borderWidth: '1.5px'
             }}
@@ -88,7 +89,7 @@ export default function HeroT3({ data, paleta }: Props) {
             />
 
             <span 
-              className="relative z-10 text-[16px] font-semibold font-['Inter'] tracking-wide transition-colors duration-300" 
+              className="relative z-10 text-[15px] sm:text-[16px] font-semibold font-['Inter'] tracking-wide transition-colors duration-300" 
               style={{ color: isHovered ? paleta.fondoOscuro : paleta.textoClaro }}
             >
               {data.hero.buttonText}
