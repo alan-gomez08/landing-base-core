@@ -21,8 +21,8 @@ export const configT1: any = {
   
   about: { 
     title: '¿Por qué elegir nuestra cocina?', 
-    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 
-    description: 'Creemos que la verdadera magia ocurre en la cocina. Por eso elegimos cuidadosamente cada ingrediente, priorizando la frescura y la calidad en cada paso de nuestra preparación. Queremos que cada bocado sea una experiencia memorable y única para vos, brindando el mejor servicio y los platos más sabrosos.', 
+    subtitle: 'Nuestra pasión por la gastronomía se refleja en cada detalle. Descubrí una propuesta donde la técnica, la tradición y la innovación se encuentran para despertar todos tus sentidos.', 
+    description: 'Creemos que la verdadera magia ocurre en el corazón de nuestra cocina, donde el fuego, la técnica y la pasión convergen todos los días. Por eso, nuestro equipo selecciona personalmente cada ingrediente trabajando de la mano con productores locales, priorizando siempre la frescura absoluta y la calidad premium en cada etapa de nuestra preparación. No nos conformamos con simplemente servir un plato; nuestra misión es llevarte a un viaje de sabores. Queremos que cada bocado sea una experiencia memorable y única para vos. Desde el primer aroma que llega a tu mesa hasta la calidez de nuestra atención, trabajamos incansablemente para brindarte el mejor servicio, un ambiente inigualable y los sabores más extraordinarios.', 
     images: { desktop: '/assets-t1/nosotros-desktop.webp', tablet: '/assets-t1/nosotros-tablet.webp', mobile: '/assets-t1/nosotros-mobile.webp' } 
   },
   
