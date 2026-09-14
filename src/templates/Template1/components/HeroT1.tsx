@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import type { ClientData } from '../../../types';
 
 interface Props {
@@ -7,8 +7,8 @@ interface Props {
 }
 
 export default function HeroT1({ data, paleta }: Props) {
-  // Animaciones premium en cascada
-  const staggerContainer = {
+  // Animaciones premium en cascada tipadas correctamente
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -16,7 +16,7 @@ export default function HeroT1({ data, paleta }: Props) {
     }
   };
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 30 },
     show: { 
       opacity: 1, 
@@ -113,7 +113,7 @@ export default function HeroT1({ data, paleta }: Props) {
                 rest: { scaleX: 0, opacity: 0 },
                 hover: { scaleX: 1, opacity: 0.1 },
                 tap: { scaleX: 1, opacity: 0.2 }
-              }}
+              } as Variants}
               transition={{ duration: 0.4, ease: "circOut" }}
             />
             
@@ -123,7 +123,7 @@ export default function HeroT1({ data, paleta }: Props) {
               variants={{
                 rest: { x: 0 },
                 hover: { x: 4 }
-              }}
+              } as Variants}
               transition={{ duration: 0.3 }}
             >
               {data.hero.buttonText}
@@ -136,7 +136,7 @@ export default function HeroT1({ data, paleta }: Props) {
                 rest: { rotate: 0, scale: 1 },
                 hover: { rotate: -12, scale: 1.08 },
                 tap: { scale: 0.95 }
-              }}
+              } as Variants}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
               <svg className="w-5 h-5 md:w-7 md:h-7 drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
