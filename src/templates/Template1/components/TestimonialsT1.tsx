@@ -51,13 +51,17 @@ export default function TestimonialsT1({ data, paleta }: Props) {
       </motion.div>
 
       {/* ── Infinite Marquee Ticker (Bleeds edge-to-edge) ──────────── */}
-      <div className="w-full overflow-hidden mt-12 lg:mt-20 group select-none">
+      <div className="w-full overflow-hidden mt-12 lg:mt-20 select-none relative">
+        {/* Soft edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-24 lg:w-36 bg-gradient-to-r from-[#0A0A0A] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-24 lg:w-36 bg-gradient-to-l from-[#0A0A0A] to-transparent z-10" />
+
         <div
-          className="flex w-max animate-marquee-slow hover:[animation-play-state:paused]"
+          className="flex w-max animate-marquee-slow"
           style={{ willChange: 'transform' }}
         >
           {/* Primary Set */}
-          <div className="flex shrink-0 gap-8 lg:gap-16 pl-6 lg:pl-[max(1.5rem,calc((100vw-1200px)/2+3rem))] pr-4 lg:pr-8">
+          <div className="flex shrink-0 gap-8 lg:gap-16 pr-8 lg:pr-16 pl-6">
             {reviews.map((review: any, idx: number) => {
               const ratingCount = Math.max(1, Math.min(5, review.rating || 5));
               const starsText = Array(ratingCount).fill('✦').join(' ');
@@ -102,7 +106,7 @@ export default function TestimonialsT1({ data, paleta }: Props) {
           </div>
 
           {/* Duplicated Clone Set for Seamless Loop */}
-          <div className="flex shrink-0 gap-8 lg:gap-16 pl-6 lg:pl-[max(1.5rem,calc((100vw-1200px)/2+3rem))] pr-4 lg:pr-8">
+          <div className="flex shrink-0 gap-8 lg:gap-16 pr-8 lg:pr-16 pl-6" aria-hidden="true">
             {reviews.map((review: any, idx: number) => {
               const ratingCount = Math.max(1, Math.min(5, review.rating || 5));
               const starsText = Array(ratingCount).fill('✦').join(' ');

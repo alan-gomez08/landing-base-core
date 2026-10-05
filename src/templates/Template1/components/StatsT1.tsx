@@ -109,16 +109,16 @@ function StatCell({
   return (
     <div
       ref={ref}
-      className="relative flex flex-col justify-between px-6 lg:px-10 py-10 lg:py-14"
-      style={{
-        borderLeft: index % 2 !== 0 ? '1px solid rgba(255,255,255,0.07)' : undefined,
-        borderTop: index >= 2 ? '1px solid rgba(255,255,255,0.07)' : undefined,
-      }}
+      className={`relative flex flex-col justify-between px-5 sm:px-6 lg:px-7 py-8 lg:py-12 ${
+        index % 2 !== 0 ? 'border-l border-white/[0.07]' : ''
+      } ${
+        index >= 2 ? 'border-t border-white/[0.07] lg:border-t-0' : ''
+      }`}
     >
       {/* Animated vertical divider (desktop — all 4 cols) */}
       {index > 0 && (
         <motion.div
-          className="absolute left-0 top-0 bottom-0 w-px"
+          className="hidden lg:block absolute left-0 top-0 bottom-0 w-px"
           style={{ backgroundColor: 'rgba(255,255,255,0.07)', transformOrigin: 'top center' }}
           initial={{ scaleY: 0 }}
           animate={inView ? { scaleY: 1 } : {}}
@@ -128,7 +128,7 @@ function StatCell({
 
       {/* Accent top strip — draws left to right */}
       <motion.div
-        className="absolute top-0 left-6 lg:left-10 h-[2px]"
+        className="absolute top-0 left-5 sm:left-6 lg:left-7 h-[2px]"
         style={{
           backgroundColor: accentColor,
           transformOrigin: 'left center',
@@ -140,12 +140,12 @@ function StatCell({
       />
 
       {/* Massive number — overflow:hidden slide-up mask */}
-      <div className="overflow-hidden mt-4">
+      <div className="overflow-hidden mt-4 pr-1">
         <motion.div
-          className="font-bold leading-none tracking-tighter"
+          className="font-bold leading-none tracking-tight whitespace-nowrap"
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 'clamp(3.2rem, 9vw, 7rem)',
+            fontSize: 'clamp(2.4rem, 4.2vw, 4.5rem)',
             background: 'linear-gradient(150deg, #ffffff 25%, #555555 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
