@@ -42,11 +42,11 @@ export default function Template1() {
   };
 
   const paleta = {
-    fondoPrincipal: configT1?.identidad?.colorSecundario || "#000000",
+    fondoPrincipal: "#0A0A0A",
     fondoSecundario: "#111111",
-    fondoCajas: "#1A1A1A",
+    fondoCajas: "#111111",
     colorPrimario: configT1?.identidad?.colorPrincipal || "#F59E0B",
-    fondoBoton: configT1?.identidad?.colorPrincipal || "#FFFFFF",
+    fondoBoton: "#FFFFFF",
     textoBoton: "#000000",
     textoPrimario: "#FFFFFF",
     textoSecundario: "#A3A3A3",

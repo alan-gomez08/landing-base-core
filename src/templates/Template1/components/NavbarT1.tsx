@@ -19,18 +19,18 @@ export default function NavbarT1({ data, paleta }: Props) {
 
   return (
     <nav 
-      className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg transition-all"
+      className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl transition-all"
       style={{ 
-        backgroundColor: `${paleta.fondoPrincipal}CC`, // Fondo principal con opacidad
-        borderBottom: `1px solid ${paleta.textoSecundario}33` 
+        backgroundColor: 'rgba(10,10,10,0.85)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)' 
       }}
     >
-      <div className="w-full max-w-[1170px] mx-auto px-6 md:px-12 h-20 flex justify-between items-center">
+      <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 h-20 flex justify-between items-center">
         
         <a 
           href="#inicio" 
-          className="text-2xl font-black font-['Inter'] tracking-tight hover:opacity-80 active:scale-95 transition-all"
-          style={{ color: paleta.textoPrimario }}
+          className="text-2xl font-bold tracking-tight text-white hover:opacity-90 active:scale-95 transition-all"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
           {data.businessName}
         </a>
@@ -40,8 +40,8 @@ export default function NavbarT1({ data, paleta }: Props) {
             <a 
               key={link.name} 
               href={link.href}
-              className="text-sm font-medium font-['Inter'] transition-all active:scale-90 hover:opacity-100 opacity-70"
-              style={{ color: paleta.textoPrimario }}
+              className="text-sm font-medium text-neutral-400 hover:text-white transition-colors active:scale-95"
+              style={{ fontFamily: "'Inter', sans-serif" }}
             >
               {link.name}
             </a>

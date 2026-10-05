@@ -1,4 +1,5 @@
-import { motion, type Variants } from 'framer-motion';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { configT1 } from '../../../config/dataT1';
 import type { ClientData } from '../../../types';
 
 interface Props {
@@ -7,147 +8,159 @@ interface Props {
 }
 
 export default function HeroT1({ data, paleta }: Props) {
-  // Animaciones premium en cascada tipadas correctamente
-  const staggerContainer: Variants = {
+  const heroData = data?.hero || configT1.hero;
+  const rawTitle = heroData?.title || configT1.hero.title;
+  // Drop generic greeting to focus directly on value proposition
+  const cleanTitle = rawTitle.replace(/^Bienvenidos!?\s*\n?/i, '').trim();
+  const subtitle = heroData?.subtitle || configT1.hero.subtitle;
+  const buttonText = heroData?.buttonText || configT1.hero.buttonText;
+  const heroImage = heroData?.images?.desktop || configT1.hero.images.desktop;
+  const whatsapp = data?.contact?.whatsapp || configT1.contact.whatsapp;
+  const accentColor = paleta?.colorPrimario || '#F59E0B';
+
+  // Subtle parallax effect linked to scroll
+  const { scrollY } = useScroll();
+  const parallaxY = useTransform(scrollY, [0, 800], [0, 160]);
+
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
-    }
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.15,
+      },
+    },
   };
 
-  const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    show: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { type: "spring", stiffness: 60, damping: 20 } 
-    }
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 40, filter: 'blur(4px)' },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
   };
 
   return (
-    <section 
-      id="inicio" 
-      className="relative w-full h-[100svh] min-h-[600px] flex flex-col justify-center overflow-hidden bg-black" 
+    <section
+      id="inicio"
+      className="relative w-full h-[100svh] min-h-[640px] flex flex-col justify-center overflow-hidden bg-[#0A0A0A]"
     >
-      
-      {/* --- VIDEO BACKGROUND A PANTALLA COMPLETA --- */}
+      {/* ── Background Image with Parallax & Gentle Scale ── */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={data.hero.images.desktop}
-          // Escala ligera para inmersión sin bordes
-          className="w-full h-full object-cover object-center scale-105"
-        >
-          <source src="/assets-t1/hero-video.mp4" type="video/mp4" />
-        </video>
-        
-        {/* OVERLAYS PARA LEGIBILIDAD DEL TEXTO */}
-        {/* 1. Oscurecimiento base súper sutil */}
-        <div className="absolute inset-0 bg-black/20 transition-all duration-700" />
-        
-        {/* 2. Gradiente Mobile: Fuerte abajo, transparente al medio. Deja la parte superior limpia */}
-        <div className="absolute bottom-0 left-0 w-full h-[75%] bg-gradient-to-t from-black/95 via-black/60 to-transparent md:hidden" />
-        
-        {/* 3. Gradiente Desktop: De izquierda a derecha */}
-        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/95 via-black/50 to-transparent w-full lg:w-[75%]" />
+        <motion.div style={{ y: parallaxY }} className="w-full h-full">
+          <motion.img
+            src={heroImage}
+            alt="Atmósfera gastronómica"
+            className="w-full h-full object-cover object-[75%_center] md:object-center"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{
+              opacity: 1,
+              scale: [1.05, 1, 1.05],
+            }}
+            transition={{
+              opacity: { duration: 1.5, ease: 'easeOut' },
+              scale: { duration: 20, ease: 'easeInOut', repeat: Infinity },
+            }}
+          />
+        </motion.div>
+
+        {/* ── Dynamic Gradient: Safe dark zone on left/bottom ── */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent md:bg-gradient-to-r md:from-[#0A0A0A]/90 md:via-[#0A0A0A]/50 md:to-transparent w-full md:w-[85%] lg:w-[75%]" />
+
+        {/* Subtle ambient film tint */}
+        <div className="absolute inset-0 bg-black/20 pointer-events-none" />
       </div>
 
-      {/* --- CONTENIDO TEXTUAL ANIMADO --- */}
-      {/* Ajuste de pb-20 en mobile para separarlo del borde inferior */}
-      <div className="relative z-10 w-full max-w-[1250px] mx-auto px-6 sm:px-12 lg:px-16 pt-24 flex flex-col justify-end md:justify-center h-full pb-20 md:pb-0">
-        <motion.div 
-          variants={staggerContainer} 
-          initial="hidden" 
-          animate="show" 
-          className="flex flex-col items-start max-w-[700px]"
+      {/* ── Editorial Content Block (Anchored Bottom on Mobile, Centered on Desktop) ── */}
+      <div className="relative z-10 w-full max-w-[1250px] mx-auto px-6 sm:px-12 lg:px-16 h-full flex flex-col justify-end pb-12 pt-32 md:justify-center md:pb-0 md:pt-0">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-100px' }}
+          className="flex flex-col items-start max-w-3xl w-full"
         >
-          
-          {/* Badge Flotante Estilo Agencia */}
-          <motion.div variants={fadeUp} className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-            <span 
-              className="w-8 md:w-14 h-[2px] opacity-90" 
-              style={{ backgroundColor: paleta.colorPrimario || '#EF4444' }}
+          {/* Eyebrow */}
+          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-4 md:mb-5">
+            <span
+              className="w-8 md:w-10 h-px"
+              style={{ backgroundColor: accentColor }}
             />
-            <span className="text-[10px] md:text-sm font-bold tracking-[0.25em] uppercase text-white/90 drop-shadow-md">
-              Experiencia Inigualable
+            <span
+              className="text-[10px] md:text-xs font-semibold tracking-[0.28em] uppercase text-white/90"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              Experiencia Gastronómica
             </span>
           </motion.div>
 
-          {/* Título Principal (Escalado corregido para mobile) */}
-          <motion.h1 
-            variants={fadeUp}
-            className="text-[38px] sm:text-[54px] lg:text-[76px] xl:text-[86px] font-black leading-[1.05] tracking-tight md:tracking-tighter text-balance drop-shadow-2xl text-white mb-4 md:mb-6"
+          {/* Headline */}
+          <motion.h1
+            variants={itemVariants}
+            className="text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold leading-tight md:leading-[1.05] tracking-tighter text-white mb-4 md:mb-6 whitespace-pre-line text-balance"
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
-            {data.hero.title}
+            {cleanTitle}
           </motion.h1>
 
-          {/* Subtítulo (Más sutil y corto en mobile) */}
-          <motion.p 
-            variants={fadeUp}
-            className="text-[15px] md:text-[20px] lg:text-[22px] font-light leading-relaxed max-w-[500px] mb-8 md:mb-10 opacity-90 drop-shadow-lg text-white/80"
+          {/* Subtitle / Description */}
+          <motion.p
+            variants={itemVariants}
+            className="text-neutral-400 text-base md:text-lg lg:text-xl font-normal leading-relaxed max-w-lg mb-8 md:mb-10"
+            style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            {data.hero.subtitle}
+            {subtitle}
           </motion.p>
 
-          {/* Botón Asimétrico Interactivo */}
-          <motion.a 
-            variants={fadeUp}
-            href={`https://wa.me/${data.contact.whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial="rest"
-            whileHover="hover"
-            whileTap="tap"
-            className="group relative inline-flex items-center gap-4 pl-6 md:pl-8 pr-2 py-2 rounded-full w-max shadow-[0_8px_30px_rgb(0,0,0,0.4)] overflow-hidden cursor-pointer"
-            style={{ backgroundColor: paleta.fondoBoton }}
+          {/* Action Area: Unified Primary & Secondary CTA Architecture */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col md:flex-row items-center gap-4 md:gap-6 w-full md:w-auto"
           >
-            {/* Sweep Background animation */}
-            <motion.div 
-              className="absolute inset-0 z-0 origin-left"
-              style={{ backgroundColor: paleta.textoBoton }}
-              variants={{
-                rest: { scaleX: 0, opacity: 0 },
-                hover: { scaleX: 1, opacity: 0.1 },
-                tap: { scaleX: 1, opacity: 0.2 }
-              } as Variants}
-              transition={{ duration: 0.4, ease: "circOut" }}
-            />
-            
-            <motion.span 
-              className="font-bold text-[15px] md:text-[18px] tracking-wide whitespace-nowrap relative z-10"
-              style={{ color: paleta.textoBoton }}
-              variants={{
-                rest: { x: 0 },
-                hover: { x: 4 }
-              } as Variants}
-              transition={{ duration: 0.3 }}
+            {/* Primary CTA: Pill-shaped solid white, text-black */}
+            <a
+              href={`https://wa.me/${whatsapp}?text=Hola! Quisiera hacer un pedido.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-base font-medium text-black bg-white hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl w-full md:w-auto text-center"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
             >
-              {data.hero.buttonText}
-            </motion.span>
-            
-            <motion.div 
-              className="w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center relative z-10 shadow-lg"
-              style={{ backgroundColor: paleta.textoBoton, color: paleta.fondoBoton }}
-              variants={{
-                rest: { rotate: 0, scale: 1 },
-                hover: { rotate: -12, scale: 1.08 },
-                tap: { scale: 0.95 }
-              } as Variants}
-              transition={{ type: "spring", stiffness: 300, damping: 15 }}
-            >
-              <svg className="w-5 h-5 md:w-7 md:h-7 drop-shadow-sm" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              <span>{buttonText}</span>
+              <svg
+                className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </motion.div>
-          </motion.a>
+            </a>
 
+            {/* Secondary CTA: Glassmorphic outline */}
+            <a
+              href="#menu"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-base font-medium text-white border border-white/20 bg-transparent hover:bg-white/10 active:scale-95 transition-all duration-200 w-full md:w-auto text-center"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              <span>Ver Menú</span>
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </motion.div>
         </motion.div>
       </div>
-
     </section>
   );
 }

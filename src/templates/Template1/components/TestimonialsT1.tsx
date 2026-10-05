@@ -1,59 +1,149 @@
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { configT1 } from '../../../config/dataT1';
 import type { ClientData } from '../../../types';
-import ScrollReveal from './ScrollReveal';
 
 interface Props {
-  data: ClientData;
-  paleta: any;
+  data?: ClientData;
+  paleta?: any;
 }
 
 export default function TestimonialsT1({ data, paleta }: Props) {
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const title = data?.testimonials?.title || configT1.testimonials.title;
+  const rawReviews = data?.testimonials?.items?.length
+    ? data.testimonials.items
+    : configT1.testimonials.items;
 
-  const scrollLeft = () => { if (sliderRef.current) sliderRef.current.scrollLeft -= 320; };
-  const scrollRight = () => { if (sliderRef.current) sliderRef.current.scrollLeft += 320; };
+  // Duplicate items to ensure enough width for seamless 50% loop on ultra-wide screens
+  const reviews = rawReviews.length < 6 ? [...rawReviews, ...rawReviews] : rawReviews;
+
+  const accentColor = paleta?.colorPrimario || '#F59E0B';
+  const bgColor = paleta?.fondoSecundario || paleta?.fondoPrincipal || '#000000';
 
   return (
-    <section id="resenas" className="w-full py-[60px] lg:py-[100px] flex justify-center overflow-hidden" style={{ backgroundColor: paleta.fondoSecundario }}>
-      <div className="w-full max-w-[1170px] mx-auto flex flex-col items-center">
-        
-        <ScrollReveal>
-          <h2 className="text-[28px] sm:text-[32px] md:text-[40px] lg:text-[50px] font-bold text-center mb-10 lg:mb-[80px] px-4 max-w-[300px] sm:max-w-md lg:max-w-none mx-auto leading-snug break-words" style={{ color: paleta.textoPrimario }}>
-            {data.testimonials.title}
-          </h2>
-        </ScrollReveal>
-        
-        <div className="flex flex-col items-center w-full">
-          <div ref={sliderRef} className="w-full flex lg:grid lg:grid-cols-3 gap-5 lg:gap-[30px] justify-start items-stretch overflow-x-auto lg:overflow-visible snap-x snap-mandatory scroll-smooth px-6 scroll-pl-6 lg:px-12 lg:scroll-pl-12 pb-4 lg:pb-0 hide-scrollbar">
-            {data.testimonials.items.map((review) => (
-              <article 
-                key={review.id} 
-                className="shrink-0 flex-none w-[300px] sm:w-[340px] lg:w-full snap-start rounded-[24px] p-8 lg:p-[40px] flex flex-col justify-start border transition-colors"
-                style={{ backgroundColor: paleta.fondoCajas, borderColor: `${paleta.textoSecundario}33` }}
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <img src={review.imagePath} alt={review.name} className="w-[56px] h-[56px] lg:w-[74px] lg:h-[74px] rounded-full object-cover" />
-                  <div className="flex flex-col gap-1">
-                    <h3 className="text-[16px] lg:text-[18px] font-bold" style={{ color: paleta.textoPrimario }}>{review.name}</h3>
-                    <div className="flex gap-1">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <svg key={i} className="w-[14px] h-[14px]" style={{ color: paleta.colorPrimario }} fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
+    <section
+      id="resenas"
+      className="relative w-full py-20 lg:py-32 overflow-hidden border-t border-white/[0.08] bg-[#0A0A0A]"
+      style={{ backgroundColor: '#0A0A0A' }}
+    >
+      {/* ── Top Header (Aligned with standard page container) ───────── */}
+      <motion.div
+        className="w-full max-w-[1200px] mx-auto px-6 lg:px-12 text-left"
+        initial={{ opacity: 0, y: 40, filter: 'blur(4px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        transition={{ duration: 0.8, bounce: 0.2 }}
+        viewport={{ once: true, margin: '-100px' }}
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-6 h-px" style={{ backgroundColor: accentColor }} />
+          <span
+            className="text-[11px] uppercase tracking-[0.28em] font-semibold"
+            style={{ color: accentColor, fontFamily: "'Inter', sans-serif" }}
+          >
+            Reseñas
+          </span>
+        </div>
+        <h2
+          className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          {title}
+        </h2>
+      </motion.div>
+
+      {/* ── Infinite Marquee Ticker (Bleeds edge-to-edge) ──────────── */}
+      <div className="w-full overflow-hidden mt-12 lg:mt-20 group select-none">
+        <div
+          className="flex w-max animate-marquee-slow hover:[animation-play-state:paused]"
+          style={{ willChange: 'transform' }}
+        >
+          {/* Primary Set */}
+          <div className="flex shrink-0 gap-8 lg:gap-16 pl-6 lg:pl-[max(1.5rem,calc((100vw-1200px)/2+3rem))] pr-4 lg:pr-8">
+            {reviews.map((review: any, idx: number) => {
+              const ratingCount = Math.max(1, Math.min(5, review.rating || 5));
+              const starsText = Array(ratingCount).fill('✦').join(' ');
+
+              return (
+                <article
+                  key={`primary-${review.id}-${idx}`}
+                  className="w-[85vw] md:w-[400px] lg:w-[500px] flex-shrink-0 flex flex-col justify-between items-start text-left"
+                >
+                  {/* Scaled-down elegant review text */}
+                  <p
+                    className="text-xl lg:text-2xl leading-relaxed text-neutral-400 cursor-default"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
+                    {review.text}
+                  </p>
+
+                  {/* Author Block */}
+                  <div className="w-full border-t border-white/[0.1] pt-6 mt-8 flex items-center gap-4 text-left">
+                    {review.imagePath && (
+                      <img
+                        src={review.imagePath}
+                        alt={review.name}
+                        className="w-12 h-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500 shrink-0"
+                      />
+                    )}
+                    <div className="flex flex-col gap-1 text-left">
+                      <h4
+                        className="text-white font-medium text-base tracking-tight"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                      >
+                        {review.name}
+                      </h4>
+                      <span className="text-white/60 text-xs tracking-[0.2em]">
+                        {starsText}
+                      </span>
                     </div>
                   </div>
-                </div>
-                
-                <svg className="w-8 h-8 mb-5 opacity-50" style={{ color: paleta.textoSecundario }} fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-                <div className="w-full h-[1px] lg:w-[195px] mb-6" style={{ backgroundColor: `${paleta.textoSecundario}33` }}></div>
-                <p className="text-[15px] lg:text-[18px] font-normal leading-relaxed" style={{ color: paleta.textoSecundario }}>
-                  {review.text}
-                </p>
-              </article>
-            ))}
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Duplicated Clone Set for Seamless Loop */}
+          <div className="flex shrink-0 gap-8 lg:gap-16 pl-6 lg:pl-[max(1.5rem,calc((100vw-1200px)/2+3rem))] pr-4 lg:pr-8">
+            {reviews.map((review: any, idx: number) => {
+              const ratingCount = Math.max(1, Math.min(5, review.rating || 5));
+              const starsText = Array(ratingCount).fill('✦').join(' ');
+
+              return (
+                <article
+                  key={`clone-${review.id}-${idx}`}
+                  className="w-[85vw] md:w-[400px] lg:w-[500px] flex-shrink-0 flex flex-col justify-between items-start text-left"
+                >
+                  {/* Scaled-down elegant review text */}
+                  <p
+                    className="text-xl lg:text-2xl leading-relaxed text-neutral-400 cursor-default"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
+                    {review.text}
+                  </p>
+
+                  {/* Author Block */}
+                  <div className="w-full border-t border-white/[0.1] pt-6 mt-8 flex items-center gap-4 text-left">
+                    {review.imagePath && (
+                      <img
+                        src={review.imagePath}
+                        alt={review.name}
+                        className="w-12 h-12 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500 shrink-0"
+                      />
+                    )}
+                    <div className="flex flex-col gap-1 text-left">
+                      <h4
+                        className="text-white font-medium text-base tracking-tight"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                      >
+                        {review.name}
+                      </h4>
+                      <span className="text-white/60 text-xs tracking-[0.2em]">
+                        {starsText}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>
